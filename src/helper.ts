@@ -24,7 +24,7 @@ export const getTimetable = (courseSubjects: any) => {
         const currentDate = startLearnTime.clone().add(i, "day");
 
         if (currentDate.weekday() + 1 === timetable.weekIndex) {
-          const currentDateString = currentDate.format("DD/MM/YYYY").toString();
+          const currentDateString = currentDate.format("YYYY-MM-DD").toString();
           const { startHour, endHour, room } = timetable;
           const lesson = {
             subjectName,
@@ -33,10 +33,10 @@ export const getTimetable = (courseSubjects: any) => {
             room,
           };
 
-          timetableByDate[currentDateString] = [
-            ..._.get(timetableByDate, "currentDateString", []),
-            lesson,
-          ];
+          timetableByDate[currentDateString] = _.sortBy([
+            ..._.get(timetableByDate, currentDateString, []),
+            lesson, 
+          ], ['startHour.indexNumber']);
         }
       }
     });

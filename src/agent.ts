@@ -3,7 +3,7 @@ import { AsyncStorage } from "react-native";
 const BASE_API = "http://dkhsv.tlu.edu.vn:8092";
 const axiosApiInstance = axios.create({
   baseURL: BASE_API + "/education/api",
-});
+})
 
 const login = async (username: string, password: string) => {
   const data = await fetch(`${BASE_API}/education/oauth/token`, {
@@ -30,22 +30,7 @@ const refreshToken = async () => {
   }
   return Promise.reject(new Error("Bạn cần đăng nhập để tiếp tục !!! "));
 };
-axiosApiInstance.interceptors.request.use(
-  async (config) => {
-    const accessToken = await AsyncStorage.getItem("access_token");
-    if (accessToken) {
-      config.headers = {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
-      };
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+
 
 axiosApiInstance.interceptors.request.use(
   async (config) => {

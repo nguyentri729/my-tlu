@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     width: width,
-    marginTop: 60,
+    marginTop: 10,
     justifyContent: "center",
   },
   image: {
@@ -39,12 +39,10 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
   },
-  card: {
-    margin: 10,
-    width: width - 60,
-
-    alignItems: "center",
-    paddingTop: 8,
+  profile_box: {
+    width: width - 50,
+    height: 100,
+    margin: 25,
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: {
@@ -53,30 +51,32 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
-
     elevation: 8,
     borderRadius: 10,
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
-  card_header: {
-    borderBottomColor: "red",
-    height: 40,
-    width: "100%",
-    backgroundColor: "#00cec9",
-    borderRadius: 1,
+  profile_image: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    margin: 10,
+  },
+  profile_name: {
+    fontSize: 20,
+    marginBottom: 5,
+    color: '#3498db'
+  },
+  profile_code: {
+    color: '#3498db'
+  },
+  btn_logout: {
+    marginTop: 10,
+    backgroundColor: '#40739e',
     alignItems: "center",
-  },
-  listContent: {
-    fontSize: 15,
-    color: "#636e72",
-    marginBottom: 10,
-    fontWeight: "bold",
-    borderBottomColor: "#dfe6e9",
-    paddingBottom: 3,
-    borderBottomWidth: 1,
-  },
-  card_body: {
-    padding: 20,
-    height: 130,
-  },
+    color: "white",
+    borderRadius: 3
+  }
 });
 export default styles;
