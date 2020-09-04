@@ -14,7 +14,9 @@ import {
 } from "react-native";
 import styles from "./styles/index";
 import agent from "../../agent"
+import AppContext from "../../store/appContext"
 export default function LoginScreen() {
+ 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const login = async () => {
@@ -26,6 +28,7 @@ export default function LoginScreen() {
     }).catch(err => {
       Alert.alert(err.message)
     })
+    
   }
   return (
     <View style={styles.container}>
@@ -69,6 +72,7 @@ export default function LoginScreen() {
           <TouchableOpacity
             onPress={() => {
               AsyncStorage.clear()
+              
             }}
             style={styles.loginButton}
           >
