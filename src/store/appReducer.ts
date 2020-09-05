@@ -1,22 +1,15 @@
+import {AsyncStorage} from 'react-native'
 export default function (prevState: any, action: any) {
   switch (action.type) {
-    case "RESTORE_TOKEN":
-      return {
-        ...prevState,
-        userToken: action.token,
-        isLoading: false,
-      };
     case "SIGN_IN":
       return {
-        ...prevState,
-        isSignout: false,
-        userToken: action.token,
+        isSign: true,
       };
     case "SIGN_OUT":
+      AsyncStorage.clear()
       return {
-        ...prevState,
-        isSignout: true,
-        userToken: null,
+        isSign: false,
       };
   }
+  return prevState;
 }

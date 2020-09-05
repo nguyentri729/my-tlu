@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   ImageBackground,
   Image,
+  Alert,
 } from "react-native";
 import styles from "./styles";
 import agent from "../../agent";
@@ -13,7 +14,26 @@ export interface Props {
   navigation?: any;
   router?: any;
 }
+import AppContext from "../../store/appContext";
+export interface IUserInfo {
+  displayName?: string;
+  username?: string;
+}
 const Hello: React.FC<Props> = ({ navigation }) => {
+  const appAction: any = React.useContext(AppContext);
+  const [userInfo, setUserInfo] = React.useState<IUserInfo>({});
+  useEffect(() => {
+    agent
+      .get("users/getCurrentUser")
+      .then((res) => {
+        const { displayName, username } = res.data;
+        setUserInfo({ displayName, username });
+      })
+      .catch((err) => {
+        appAction.signOut();
+        Alert.alert(err.message);
+      });
+  }, []);
   return (
     <ImageBackground
       source={require("../../../assets/login-background.png")}
@@ -23,21 +43,21 @@ const Hello: React.FC<Props> = ({ navigation }) => {
         <Image
           style={styles.profile_image}
           source={{
-            uri:
-              "https://upload.wikimedia.org/wikipedia/commons/1/14/Mark_Zuckerberg_F8_2018_Keynote_%28cropped_2%29.jpg",
+            uri: `http://dkhsv.tlu.edu.vn:8092/education/public/users/photo/${userInfo?.username}`,
           }}
         />
         <View>
-          <Text style={styles.profile_name}>
-            Mark Zuckerberg
-          </Text>
+          <Text style={styles.profile_name}>{userInfo?.displayName}</Text>
           <Text style={styles.profile_code}>
-            MSV: 
-            1951061068
+            MSV:
+            {userInfo?.username}
           </Text>
 
-          <TouchableOpacity style={styles.btn_logout}>
-            <Text style={{color: 'white'}}>Logout</Text>
+          <TouchableOpacity
+            style={styles.btn_logout}
+            onPress={() => appAction.signOut()}
+          >
+            <Text style={{ color: "white" }}>Đăng xuất</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -86,11 +106,19 @@ const Hello: React.FC<Props> = ({ navigation }) => {
           <Text style={styles.title}>Học phi</Text>
         </View>
         <View style={styles.items}>
-          <Image
-            source={require("../../../assets/logo.png")}
-            style={styles.icon}
-          />
-          <Text style={styles.title}>Thông tin</Text>
+          <TouchableOpacity
+            onPress={() => {
+              // console.log(navigation);
+              //navigation.navigate('Details')}
+              navigation.navigate("Setting");
+            }}
+          >
+            <Image
+              source={require("../../../assets/setting.png")}
+              style={styles.icon}
+            />
+            <Text style={styles.title}>Cài đặt</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ImageBackground>

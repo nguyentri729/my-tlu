@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 5,
     color: '#3498db'
+    
   },
   profile_code: {
     color: '#3498db'

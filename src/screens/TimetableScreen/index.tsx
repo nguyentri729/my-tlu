@@ -75,7 +75,7 @@ export default function TimetableScreen() {
     }
     loadTimetables();
   }, []);
-  const today: string = moment().add(3, "days").format("YYYY-MM-DD");
+  const today: string = moment().format("YYYY-MM-DD");
   return (
     <View style={styles.container}>
       <Agenda

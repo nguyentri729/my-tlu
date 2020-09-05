@@ -21,9 +21,9 @@ export const getTimetable = (courseSubjects: any) => {
       const rangeLearnTime =
         (timetable.toWeek - timetable.fromWeek + 1) * 7 - 1;
       for (let i = 0; i < rangeLearnTime; i++) {
-        const currentDate = startLearnTime.clone().add(i, "day");
-
-        if (currentDate.weekday() + 1 === timetable.weekIndex) {
+        const currentDate = startLearnTime.clone().add(i-1, "days");
+        console.log(currentDate.weekday())        
+        if (currentDate.weekday() + 2 === timetable.weekIndex) {
           const currentDateString = currentDate.format("YYYY-MM-DD").toString();
           const { startHour, endHour, room } = timetable;
           const lesson = {
@@ -41,5 +41,6 @@ export const getTimetable = (courseSubjects: any) => {
       }
     });
   });
+  console.log(timetableByDate)
   return timetableByDate;
 };

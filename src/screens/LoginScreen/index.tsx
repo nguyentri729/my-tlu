@@ -16,20 +16,21 @@ import styles from "./styles/index";
 import agent from "../../agent"
 import AppContext from "../../store/appContext"
 export default function LoginScreen() {
- 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const appAction:any  = React.useContext(AppContext);
+  
   const login = async () => {
     await AsyncStorage.setItem('username', username)
     await AsyncStorage.setItem('password', password)
     agent('/users/getCurrentUser').then(res => {
-      console.log(res)
-
+      appAction.signIn()
     }).catch(err => {
       Alert.alert(err.message)
     })
-    
   }
+
+  
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -67,16 +68,6 @@ export default function LoginScreen() {
             style={styles.loginButton}
           >
             <Text style={styles.loginButtonText} >Đăng nhập</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              AsyncStorage.clear()
-              
-            }}
-            style={styles.loginButton}
-          >
-            <Text style={styles.loginButtonText}>Xoa thong tin dang nhap</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </ImageBackground>
